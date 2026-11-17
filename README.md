@@ -48,4 +48,17 @@ Confirm the final address/postcode, current team information, service prices and
 
 ## Security and hosting
 
-Actual `.env` files, credentials, local databases, generated builds and test screenshots are excluded. Do not commit tokens. This repository is a source-code transfer, not a GitHub Pages deployment; the managed app includes a server and is not a standalone static HTML site. The existing Runable preview remains separate from the GitHub repository.
+Actual `.env` files, credentials, local databases, generated builds and test screenshots are excluded. Do not commit tokens. The managed application source lives on `main`. GitHub Pages serves a static frontend export from `gh-pages` at:
+
+https://sygstokkieza.github.io/colour-lab-hair-studio/
+
+The Pages build uses hash routes (for example `#/services`) so links and refreshes work without a server. Contact enquiries remain local email drafts; GitHub Pages does not host the managed API scaffold. The Runable preview keeps normal browser routes and remains separate.
+
+To rebuild the Pages frontend using the existing managed Vite configuration:
+
+```sh
+bun run --cwd packages/web typecheck
+bun run --cwd packages/web build --mode github-pages
+```
+
+Publish only `packages/web/dist/` to the `gh-pages` branch. Never copy the root environment file or backend credentials into that branch.

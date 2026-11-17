@@ -18,6 +18,8 @@ import {
   Scissors,
 } from "lucide-react";
 
+const asset = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
+
 const phone = "tel:+27448734787";
 const maps = "https://www.google.com/maps?cid=3379725071183913766";
 const instagram = "https://www.instagram.com/colour_lab_hair_studio/";
@@ -73,7 +75,7 @@ export function Button({
 function Brand() {
   return (
     <Link href="/" className="brand" aria-label="Colour Lab home">
-      <img src="/images/logo-facebook.jpg" alt="Colour Lab circular monogram" />
+      <img src={asset("/images/logo-facebook.jpg")} alt="Colour Lab circular monogram" />
       <span>
         COLOUR LAB<small>HAIR STUDIO · GEORGE</small>
       </span>
@@ -98,7 +100,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
   }, [path]);
   return (
     <>
-      <a className="skip" href="#main">
+      <a
+        className="skip"
+        href="#main"
+        onClick={(event) => {
+          event.preventDefault();
+          const main = document.getElementById("main");
+          main?.focus();
+          main?.scrollIntoView();
+        }}
+      >
         Skip to content
       </a>
       <header className="header">
@@ -139,7 +150,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
           ))}
         </nav>
       )}
-      <main id="main">{children}</main>
+      <main id="main" tabIndex={-1}>
+        {children}
+      </main>
       <footer>
         <div className="footer-top">
           <div>
@@ -260,37 +273,37 @@ const services = [
 ];
 const portfolio = [
   {
-    src: "/images/hero-balayage.jpg",
+    src: asset("/images/hero-balayage.jpg"),
     label: "Beautifully blended",
     kind: "Blondes",
     caption: "Colour Lab portfolio · Hair by Stef & Chantal",
   },
   {
-    src: "/images/portfolio-reference-04.jpg",
+    src: asset("/images/portfolio-reference-04.jpg"),
     label: "Dimensional brunette",
     kind: "Brunettes",
     caption: "From the Colour Lab studio portfolio",
   },
   {
-    src: "/images/portfolio-reference-05.jpg",
+    src: asset("/images/portfolio-reference-05.jpg"),
     label: "Sleek & polished",
     kind: "Cuts & styling",
     caption: "From the Colour Lab studio portfolio",
   },
   {
-    src: "/images/portfolio-reference-06.jpg",
+    src: asset("/images/portfolio-reference-06.jpg"),
     label: "Soft blonde bob",
     kind: "Blondes",
     caption: "From the Colour Lab studio portfolio",
   },
   {
-    src: "/images/portfolio-reference-09.jpg",
+    src: asset("/images/portfolio-reference-09.jpg"),
     label: "Waves of light",
     kind: "Blondes",
     caption: "From the Colour Lab studio portfolio",
   },
   {
-    src: "/images/portfolio-reference-08.jpg",
+    src: asset("/images/portfolio-reference-08.jpg"),
     label: "A colour journey",
     kind: "Brunettes",
     caption: "From the Colour Lab studio portfolio",
@@ -529,7 +542,7 @@ export function Home() {
         <div className="hero-visual">
           <div className="hero-image">
             <img
-              src="/images/hero-balayage.jpg"
+              src={asset("/images/hero-balayage.jpg")}
               alt="Blended blonde balayage bob by Stef and Chantal at Colour Lab"
             />
             <div className="image-label">
@@ -539,7 +552,7 @@ export function Home() {
           </div>
           <div className="hero-inset">
             <img
-              src="/images/google-hair.jpg"
+              src={asset("/images/google-hair.jpg")}
               alt="Colour Lab studio wash area with green accents"
             />
             <span>YOUR MOMENT, OUR STUDIO.</span>
@@ -556,7 +569,7 @@ export function Home() {
       <section className="story section">
         <div className="story-image">
           <img
-            src="/images/google-hair.jpg"
+            src={asset("/images/google-hair.jpg")}
             alt="Colour Lab's botanical studio interior"
             loading="lazy"
           />
@@ -608,7 +621,7 @@ export function Home() {
           eyebrow="FROM THE STUDIO"
           title="Good hair."
           italic="Real people."
-          link={["/services#portfolio", "More from our portfolio"]}
+          link={["/services", "More from our portfolio"]}
         />
         <Gallery compact />
         <div className="gallery-bottom">
@@ -672,7 +685,7 @@ export function About() {
         text="Get to know the studio on Courtenay Street, where colour expertise meets a welcoming, personal touch."
       />
       <section className="about-story section">
-        <img src="/images/salon-cover.jpg" alt="Colour Lab salon stations and wash area" />
+        <img src={asset("/images/salon-cover.jpg")} alt="Colour Lab salon stations and wash area" />
         <div>
           <span className="eyebrow">OUR STUDIO, YOUR SPACE</span>
           <h2>
@@ -764,7 +777,7 @@ export function Services() {
       />
       <section className="services-layout section">
         <aside>
-          <img src="/images/hero-balayage.jpg" alt="Colour Lab blended balayage bob" />
+          <img src={asset("/images/hero-balayage.jpg")} alt="Colour Lab blended balayage bob" />
           <span className="eyebrow">NOT SURE WHERE TO START?</span>
           <h3>
             Let’s talk
@@ -1101,7 +1114,7 @@ export function Contact() {
         </div>
       </section>
       <section className="visit-banner">
-        <img src="/images/salon-cover.jpg" alt="The interior of Colour Lab Hair Studio" />
+        <img src={asset("/images/salon-cover.jpg")} alt="The interior of Colour Lab Hair Studio" />
         <div>
           <span className="eyebrow">YOUR MOMENT, OUR STUDIO</span>
           <h2>
