@@ -1,14 +1,12 @@
 # Colour Lab — Hair Studio
 
-Responsive five-page website for Colour Lab in George, South Africa.
+Responsive Home + Contact website preview for Colour Lab in George, South Africa.
 
 ## Pages
 
-- `/` — Home
-- `/about` — Studio and team
-- `/services` — Service filters, disclosures and portfolio lightbox
-- `/testimonials` — Genuine, attributed review excerpts
+- `/` — Home, short about section, seven services, portfolio lightbox and two attributed Google testimonials
 - `/contact` — Contact information and email-enquiry preparation
+- Former `/about`, `/services` and `/testimonials` URLs redirect to Home; their standalone pages have been removed.
 
 ## Run locally
 
@@ -48,17 +46,35 @@ Confirm the final address/postcode, current team information, service prices and
 
 ## Security and hosting
 
-Actual `.env` files, credentials, local databases, generated builds and test screenshots are excluded. Do not commit tokens. The managed application source lives on `main`. GitHub Pages serves a static frontend export from `gh-pages` at:
+Actual `.env` files, credentials, local databases, generated builds and test screenshots are excluded. Do not commit tokens.
 
-https://sygstokkieza.github.io/colour-lab-hair-studio/
+The revised website is published from the `gh-pages` branch of the public repository:
 
-The Pages build uses hash routes (for example `#/services`) so links and refreshes work without a server. Contact enquiries remain local email drafts; GitHub Pages does not host the managed API scaffold. The Runable preview keeps normal browser routes and remains separate.
+- Website: https://sygstokkieza.github.io/colour-lab-hair-studio/
+- Repository: https://github.com/SygStokkieZA/colour-lab-hair-studio
+- Contact: https://sygstokkieza.github.io/colour-lab-hair-studio/contact/
 
-To rebuild the Pages frontend using the existing managed Vite configuration:
+The `main` branch holds the managed application source. GitHub Pages serves only the static frontend; it does not host the API scaffold. The other previously deleted repositories are not recreated.
+
+### Rebuild the Pages export
 
 ```sh
-bun run --cwd packages/web typecheck
+bun install --frozen-lockfile
 bun run --cwd packages/web build --mode github-pages
+python -m pip install playwright
+python deployment/export_pages.py
 ```
 
-Publish only `packages/web/dist/` to the `gh-pages` branch. Never copy the root environment file or backend credentials into that branch.
+The export script uses Google Chrome at `/usr/bin/google-chrome` and prerenders Home and Contact from the same managed React application. It adds a sitemap and redirects for the three removed pages. Publish only the contents of `packages/web/dist/` to `gh-pages`. Never copy `.env`, source credentials or server files into that branch.
+
+Runable preview edits do not automatically publish to GitHub Pages. Rebuild and push the static export whenever publishing an update.
+
+## SEO foundations
+
+- Descriptive local page titles and per-page meta descriptions.
+- One H1 per page, semantic section headings and descriptive image alt text.
+- Open Graph and Twitter card metadata.
+- Factual HairSalon JSON-LD with contact details, address, social links and opening hours.
+- No self-serving review-rating schema or invented postcode, coordinates, prices or canonical domain.
+
+The Pages export includes canonical URLs, absolute social-image URLs and a two-page XML sitemap for the public GitHub Pages address. Home and Contact are prerendered so the initial HTML contains page content and metadata. If a custom domain is added later, update the publishing URL constants and rebuild. Google Search Console verification remains an owner action.

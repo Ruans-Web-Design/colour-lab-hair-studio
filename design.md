@@ -4,7 +4,9 @@
 > Keep it short and concrete — it's the single source of truth for palette, typography, pages,
 > screens, and flows across web, mobile, and desktop.
 
-Five-page responsive salon website preview: Home, About, Services, Testimonials and Contact. Refined botanical editorial styling based on the researched authentic logo and photographs. Web only; no database or additional API needed.
+Two-page responsive salon website preview: Home and Contact. Home combines a short about section, all seven hair services, portfolio and two genuine attributed testimonials. Remove standalone About, Services and Testimonials pages. Keep refined botanical editorial styling based on the authentic logo and photographs. Web only; no database or additional API needed. The user subsequently approved recreating only the Colour Lab public repository and publishing this revision to GitHub Pages. The Runable preview remains available.
+
+SEO: descriptive local page titles and descriptions, one H1 per page, semantic headings, descriptive image alt text, Open Graph/Twitter metadata and factual HairSalon structured data. Do not invent a canonical domain or add self-serving review-rating schema. The GitHub Pages export now uses the approved public GitHub Pages URL for canonical links, absolute social images and its two-page sitemap. Home and Contact use clean paths and prerendered initial HTML.
 
 ## Brand & Colors
 

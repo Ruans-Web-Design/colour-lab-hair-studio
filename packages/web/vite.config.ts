@@ -25,13 +25,23 @@ export default defineConfig(({ mode }) => {
       tailwind(),
       assetOptimizerPlugin(),
       {
-        name: "pages-analytics-base",
+        name: "github-pages-metadata",
         transformIndexHtml: {
           order: "post",
           handler(html) {
-            return mode === "github-pages"
-              ? html.replace('src="/runable.js"', 'src="/colour-lab-hair-studio/runable.js"')
-              : html;
+            if (mode !== "github-pages") return html;
+            const url = "https://sygstokkieza.github.io/colour-lab-hair-studio/";
+            return html
+              .replace('src="/runable.js"', 'src="/colour-lab-hair-studio/runable.js"')
+              .replace(
+                /content="\/(?:colour-lab-hair-studio\/)?images\/hero-balayage.jpg"/g,
+                `content="${url}images/hero-balayage.jpg"`,
+              )
+              .replace('"@type": "HairSalon",', `"@type": "HairSalon", "url": "${url}",`)
+              .replace(
+                "</head>",
+                `<link rel="canonical" href="${url}"><meta property="og:url" content="${url}"></head>`,
+              );
           },
         },
       },

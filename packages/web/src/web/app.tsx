@@ -1,20 +1,34 @@
-import { Route, Router, Switch } from "wouter";
-import { useHashLocation } from "wouter/use-hash-location";
-import { Home, About, Services, Testimonials, Contact, NotFound, Layout } from "./pages/salon";
+import { Redirect, Route, Router, Switch } from "wouter";
+import { useBrowserLocation } from "wouter/use-browser-location";
+import { Home, Contact, NotFound, Layout } from "./pages/salon";
 import "./salon.css";
 import { Provider } from "./components/provider";
 import { AgentFeedback, RunableBadge } from "@runablehq/website-runtime";
 
+function usePagesLocation() {
+  const [path, navigate] = useBrowserLocation();
+  return [path.replace(/\/$/, "") || "/", navigate] as const;
+}
+
 function App() {
   return (
     <Provider>
-      <Router hook={import.meta.env.MODE === "github-pages" ? useHashLocation : undefined}>
+      <Router
+        base={import.meta.env.MODE === "github-pages" ? "/colour-lab-hair-studio" : ""}
+        hook={import.meta.env.MODE === "github-pages" ? usePagesLocation : undefined}
+      >
         <Layout>
           <Switch>
             <Route path="/" component={Home} />
-            <Route path="/about" component={About} />
-            <Route path="/services" component={Services} />
-            <Route path="/testimonials" component={Testimonials} />
+            <Route path="/about">
+              <Redirect to="/" />
+            </Route>
+            <Route path="/services">
+              <Redirect to="/" />
+            </Route>
+            <Route path="/testimonials">
+              <Redirect to="/" />
+            </Route>
             <Route path="/contact" component={Contact} />
             <Route component={NotFound} />
           </Switch>

@@ -11,7 +11,6 @@ import {
   Instagram,
   Facebook,
   Plus,
-  Minus,
   Mail,
   ChevronLeft,
   ChevronRight,
@@ -26,9 +25,6 @@ const instagram = "https://www.instagram.com/colour_lab_hair_studio/";
 const facebook = "https://www.facebook.com/hsecolourlab/";
 const nav = [
   ["/", "Home"],
-  ["/about", "About us"],
-  ["/services", "Services"],
-  ["/testimonials", "Testimonials"],
   ["/contact", "Contact"],
 ];
 export function External({
@@ -88,15 +84,33 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const [privacy, setPrivacy] = useState(false);
   useEffect(() => {
     setMenu(false);
-    window.scrollTo(0, 0);
-    const titles: Record<string, string> = {
-      "/": "Hair Colour & Balayage in George",
-      "/about": "About the Studio",
-      "/services": "Hair Services in George",
-      "/testimonials": "Client Reviews",
-      "/contact": "Contact & Book",
-    };
-    document.title = `${titles[path] || "Hair Studio"} | Colour Lab`;
+    const section = window.location.hash.slice(1);
+    if (section) requestAnimationFrame(() => document.getElementById(section)?.scrollIntoView());
+    else window.scrollTo(0, 0);
+    const isContact = path === "/contact";
+    document.title = isContact
+      ? "Contact Colour Lab Hair Studio | George Hair Salon"
+      : path === "/"
+        ? "Colour Lab Hair Studio | Hair Colour & Balayage in George"
+        : "Page Not Found | Colour Lab Hair Studio";
+    const description = isContact
+      ? "Book your next hair appointment at Colour Lab Hair Studio, 25 Courtenay Street, George. Call 044 873 4787 or email hsecolourlab@gmail.com."
+      : "Hair colour, balayage, blondes, colour corrections, cuts and treatments at Colour Lab Hair Studio in George. Visit 25 Courtenay Street. Call 044 873 4787.";
+    for (const selector of [
+      'meta[name="description"]',
+      'meta[property="og:description"]',
+      'meta[name="twitter:description"]',
+    ]) {
+      document.querySelector(selector)?.setAttribute("content", description);
+    }
+    for (const selector of ['meta[property="og:title"]', 'meta[name="twitter:title"]']) {
+      document.querySelector(selector)?.setAttribute("content", document.title);
+    }
+    if (import.meta.env.MODE === "github-pages") {
+      const url = `https://sygstokkieza.github.io/colour-lab-hair-studio/${isContact ? "contact/" : ""}`;
+      document.querySelector('link[rel="canonical"]')?.setAttribute("href", url);
+      document.querySelector('meta[property="og:url"]')?.setAttribute("content", url);
+    }
   }, [path]);
   return (
     <>
@@ -174,6 +188,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </div>
           <div>
             <span className="eyebrow">EXPLORE</span>
+            <a href={`${import.meta.env.BASE_URL}#about`}>About the studio</a>
+            <a href={`${import.meta.env.BASE_URL}#services`}>Hair services</a>
+            <a href={`${import.meta.env.BASE_URL}#testimonials`}>Client testimonials</a>
             {nav.slice(1).map(([href, label]) => (
               <Link key={href} href={href}>
                 {label}
@@ -519,10 +536,11 @@ export function Home() {
             <span className="little-line" /> COLOUR LAB · GEORGE
           </span>
           <h1>
-            Beautiful colour.
-            <br />A look that feels
+            Hair colour.
             <br />
-            like <em>you.</em>
+            Made personal
+            <br />
+            <em>in George.</em>
           </h1>
           <p>
             Colour is personal. From softly blended balayage to a fresh new shade, find your next
@@ -530,10 +548,10 @@ export function Home() {
           </p>
           <div className="hero-actions">
             <Button />
-            <Link href="/services" className="text-link">
+            <a href="#services" className="text-link">
               Explore our services
               <ArrowRight size={16} />
-            </Link>
+            </a>
           </div>
           <div className="hero-note">
             <span className="tiny-star">✳</span> COLOUR, CUTTING & A LITTLE CONFIDENCE.
@@ -566,7 +584,7 @@ export function Home() {
         </div>
       </section>
       <TrustBar />
-      <section className="story section">
+      <section className="story section" id="about" aria-labelledby="about-heading">
         <div className="story-image">
           <img
             src={asset("/images/google-hair.jpg")}
@@ -576,53 +594,48 @@ export function Home() {
           <span className="photo-label">A LITTLE SPACE FOR YOURSELF.</span>
         </div>
         <div className="story-copy">
-          <span className="eyebrow">WELCOME TO COLOUR LAB</span>
-          <h2>
-            Colour expertise.
+          <span className="eyebrow">ABOUT US</span>
+          <h2 id="about-heading">
+            Your George studio.
             <br />
             <em>A personal touch.</em>
           </h2>
           <p>
-            A welcoming studio on Courtenay Street, George, where beautiful colour takes centre
-            stage.
+            Colour Lab Hair Studio is a welcoming hair salon at 25 Courtenay Street in George, where
+            beautiful colour and a personal touch go hand in hand.
           </p>
           <p>
             Led by owner Stefan Ellis, known as Stef, our work spans balayage, blondes, colour
             corrections, cutting and hair treatments. Come as you are. Let’s explore what’s next.
           </p>
-          <Link href="/about" className="text-link">
-            Get to know our studio
+          <External href={maps} className="text-link">
+            Visit our studio
             <ArrowUpRight size={18} />
-          </Link>
+          </External>
         </div>
       </section>
-      <section className="service-preview section">
+      <section className="service-preview section" id="services">
         <SectionHeading
           eyebrow="A LITTLE REFRESH. A WHOLE NEW CHAPTER."
-          title="Your hair, our"
-          italic="canvas."
-          link={["/services", "All our services"]}
+          title="Hair services in"
+          italic="George."
         />
         <div className="service-preview-grid">
-          {services.slice(0, 3).map((s, i) => (
-            <Link key={s.name} href="/services" className="service-preview-item">
+          {services.map((s, i) => (
+            <article key={s.name} className="service-preview-item">
               <span className="service-number">0{i + 1}</span>
               <h3>{s.name}</h3>
               <p>{s.text}</p>
-              <span className="service-arrow">
-                <ArrowUpRight size={22} />
-              </span>
-            </Link>
+            </article>
           ))}
         </div>
+        <p className="pricing-note">
+          Every hair story is different. Call 044 873 4787 for current pricing and to discuss the
+          right services for you.
+        </p>
       </section>
       <section className="section portfolio-section">
-        <SectionHeading
-          eyebrow="FROM THE STUDIO"
-          title="Good hair."
-          italic="Real people."
-          link={["/services", "More from our portfolio"]}
-        />
+        <SectionHeading eyebrow="FROM THE STUDIO" title="Good hair." italic="Real people." />
         <Gallery compact />
         <div className="gallery-bottom">
           <p>A few of our favourite colour stories.</p>
@@ -633,20 +646,50 @@ export function Home() {
           </External>
         </div>
       </section>
-      <section className="home-review">
-        <span className="eyebrow">A KIND WORD GOES A LONG WAY</span>
-        <div className="quote-mark">“</div>
-        <blockquote>
-          You have achieved perfect results
-          <br className="desktop-break" /> with the colour and cut.
-        </blockquote>
-        <p>
-          ALTA PRETORIUS <span>· Google review</span>
-        </p>
-        <Link href="/testimonials" className="text-link">
-          More client stories
-          <ArrowUpRight size={17} />
-        </Link>
+      <section className="home-testimonials section" id="testimonials">
+        <SectionHeading
+          eyebrow="CLIENT TESTIMONIALS"
+          title="Kind words."
+          italic="Real experiences."
+        />
+        <div className="home-testimonial-grid">
+          <article>
+            <span className="quote-mark" aria-hidden="true">
+              “
+            </span>
+            <blockquote>You have achieved perfect results with the colour and cut.</blockquote>
+            <div className="review-author">
+              <span className="avatar">AP</span>
+              <div>
+                Alta Pretorius<small>Google review · excerpt</small>
+              </div>
+            </div>
+          </article>
+          <article>
+            <span className="quote-mark" aria-hidden="true">
+              “
+            </span>
+            <blockquote>
+              Chantal did an AMAZING job on my hair - I was absolutely delighted with the result.
+            </blockquote>
+            <div className="review-author">
+              <span className="avatar">SA</span>
+              <div>
+                S A<small>Google review · excerpt</small>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div className="testimonial-source">
+          <p>
+            Selected client review excerpts. Google rating snapshot: 4.8/5 from 158 reviews, 16
+            November 2026.
+          </p>
+          <External href={maps} className="text-link">
+            Read the full Google reviews
+            <ArrowUpRight size={17} />
+          </External>
+        </div>
       </section>
       <Cta />
     </>
@@ -675,250 +718,6 @@ function PageIntro({
     </section>
   );
 }
-export function About() {
-  return (
-    <>
-      <PageIntro
-        tag="THE PEOPLE BEHIND THE COLOUR"
-        title="More than a new look."
-        italic="A personal experience."
-        text="Get to know the studio on Courtenay Street, where colour expertise meets a welcoming, personal touch."
-      />
-      <section className="about-story section">
-        <img src={asset("/images/salon-cover.jpg")} alt="Colour Lab salon stations and wash area" />
-        <div>
-          <span className="eyebrow">OUR STUDIO, YOUR SPACE</span>
-          <h2>
-            Rooted in George.
-            <br />
-            <em>Inspired by you.</em>
-          </h2>
-          <p>
-            Colour Lab – Hair Studio is based on Courtenay Street in George. Our work centres on
-            beautiful colour—from balayage and blondes to colour corrections—alongside cutting,
-            styling and hair treatments.
-          </p>
-          <p>
-            Led by owner Stefan Ellis, known to our clients as Stef, the studio combines a passion
-            for hair colour with a welcoming salon experience. Explore our work, then get in touch
-            to discuss your next appointment.
-          </p>
-          <External href={maps} className="text-link">
-            Find our studio
-            <ArrowUpRight size={18} />
-          </External>
-        </div>
-      </section>
-      <section className="team section">
-        <SectionHeading
-          eyebrow="MEET THE STUDIO"
-          title="The hands behind"
-          italic="your next look."
-        />
-        <div className="team-grid">
-          <article>
-            <span className="team-initial">SE</span>
-            <div>
-              <span className="eyebrow">OWNER · STYLIST</span>
-              <h3>Stefan Ellis</h3>
-              <p>
-                Known as Stef, Stefan is the owner of Colour Lab. His work appears across the
-                studio’s colour and balayage portfolio.
-              </p>
-            </div>
-          </article>
-          <article>
-            <span className="team-initial">C</span>
-            <div>
-              <span className="eyebrow">STYLIST</span>
-              <h3>Chantal</h3>
-              <p>
-                Chantal’s portfolio includes balayage, full-head colour, cutting and styling. Her
-                work is a familiar part of the studio’s colour stories.
-              </p>
-            </div>
-          </article>
-        </div>
-      </section>
-      <section className="values section">
-        <div>
-          <span className="eyebrow">THE COLOUR LAB FEELING</span>
-          <h2>
-            A space to feel
-            <br />
-            <em>like yourself.</em>
-          </h2>
-        </div>
-        <div>
-          <p>
-            Beautiful colour is only one part of the experience. Our clients also speak about
-            friendly, attentive service and a welcoming atmosphere.
-          </p>
-          <blockquote>
-            “The staff are all super friendly, professional and very attentive.”
-          </blockquote>
-          <small>S A · Google review excerpt</small>
-          <p className="inclusive">Everyone is welcome. LGBTQ+ friendly.</p>
-        </div>
-      </section>
-      <Cta />
-    </>
-  );
-}
-export function Services() {
-  const [filter, setFilter] = useState("All services");
-  return (
-    <>
-      <PageIntro
-        tag="COLOUR. CUT. CARE."
-        title="Your hair, our canvas."
-        italic="Let’s create your next look."
-        text="From a softly blended colour to a fresh cut and finish, explore what we do at Colour Lab."
-      />
-      <section className="services-layout section">
-        <aside>
-          <img src={asset("/images/hero-balayage.jpg")} alt="Colour Lab blended balayage bob" />
-          <span className="eyebrow">NOT SURE WHERE TO START?</span>
-          <h3>
-            Let’s talk
-            <br />
-            <em>about your hair.</em>
-          </h3>
-          <p>Tell us about your current hair and the look you have in mind.</p>
-          <a href={phone} className="text-link">
-            044 873 4787
-            <ArrowUpRight size={17} />
-          </a>
-        </aside>
-        <div className="service-menu">
-          <div className="filters">
-            {["All services", "Colour", "Cut & style", "Treatments"].map((f) => (
-              <button
-                key={f}
-                onClick={() => setFilter(f)}
-                className={filter === f ? "selected" : ""}
-                aria-pressed={filter === f}
-              >
-                {f}
-              </button>
-            ))}
-          </div>
-          {services
-            .filter((s) => filter === "All services" || s.category === filter)
-            .map((s) => (
-              <details className="service-detail" key={s.name}>
-                <summary>
-                  <span className="service-number">
-                    {String(services.indexOf(s) + 1).padStart(2, "0")}
-                  </span>
-                  <span>{s.name}</span>
-                  <Plus className="plus" size={20} />
-                  <Minus className="minus" size={20} />
-                </summary>
-                <div className="service-detail-body">
-                  <span className="eyebrow">{s.tag}</span>
-                  <p>{s.text}</p>
-                  <a href={phone} className="text-link">
-                    Discuss this service
-                    <ArrowUpRight size={16} />
-                  </a>
-                </div>
-              </details>
-            ))}
-          <p className="pricing-note">
-            Every hair story is different. Contact the studio for current pricing and to discuss the
-            services you need.
-          </p>
-        </div>
-      </section>
-      <section className="section portfolio-section" id="portfolio">
-        <SectionHeading
-          eyebrow="REAL WORK FROM OUR STUDIO"
-          title="A little inspiration"
-          italic="for your next visit."
-        />
-        <Gallery />
-        <div className="gallery-bottom">
-          <span>Images from Colour Lab’s public studio portfolio.</span>
-          <External href={instagram} className="text-link">
-            See more on Instagram
-            <ArrowUpRight size={17} />
-          </External>
-        </div>
-      </section>
-      <Cta />
-    </>
-  );
-}
-export function Testimonials() {
-  return (
-    <>
-      <PageIntro
-        tag="CLIENT STORIES"
-        title="Good hair feels good."
-        italic="Kind words feel even better."
-        text="A few words from the people who have spent time in our chairs. Genuine reviews, shared in their own words."
-      />
-      <section className="reviews-section section">
-        <div className="rating-panel">
-          <span className="google-g">G</span>
-          <strong>
-            4.8<span>/ 5</span>
-          </strong>
-          <Stars />
-          <p>158 Google reviews</p>
-          <External href={maps} className="text-link">
-            Read all Google reviews
-            <ArrowUpRight size={17} />
-          </External>
-          <small>Rating snapshot · 16 November 2026</small>
-        </div>
-        <div className="review-list">
-          <article>
-            <span className="quote-mark">“</span>
-            <blockquote>You have achieved perfect results with the colour and cut.</blockquote>
-            <div className="review-author">
-              <span className="avatar">AP</span>
-              <div>
-                Alta Pretorius<small>Google review · excerpt</small>
-              </div>
-            </div>
-          </article>
-          <article>
-            <span className="quote-mark">“</span>
-            <blockquote>
-              Chantal did an AMAZING job on my hair - I was absolutely delighted with the result.
-              Stef the owner has a wonderful welcoming manner and great rapport with his staff and
-              all the clients.
-            </blockquote>
-            <div className="review-author">
-              <span className="avatar">SA</span>
-              <div>
-                S A<small>Google review · excerpt</small>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
-      <section className="facebook-rating">
-        <Facebook size={22} />
-        <div>
-          <h3>96% recommend us on Facebook</h3>
-          <p>Based on 28 reviews · snapshot 16 November 2026</p>
-        </div>
-        <External href={facebook} className="text-link">
-          Visit our Facebook page
-          <ArrowUpRight size={18} />
-        </External>
-      </section>
-      <p className="review-note">
-        Selected positive excerpts. Explore the linked platforms for the full range of client
-        feedback.
-      </p>
-      <Cta />
-    </>
-  );
-}
 export function Contact() {
   const [ready, setReady] = useState(false);
   const [copy, setCopy] = useState(false);
@@ -939,8 +738,8 @@ export function Contact() {
     <>
       <PageIntro
         tag="LET’S TALK ABOUT YOUR NEXT LOOK"
-        title="Your next chapter"
-        italic="starts with hello."
+        title="Contact Colour Lab."
+        italic="Your George hair studio."
         text="Call the studio to book, or prepare an email enquiry. We’d love to hear what you have in mind."
       />
       <section className="contact-layout section">
