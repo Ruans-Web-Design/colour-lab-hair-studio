@@ -53,3 +53,7 @@ List each page/screen, its route file, and what it shows. Example:
 - **API**: typed oRPC client (`lib/api.ts` in each package) → the backend in `@template/web`. Query/mutation hooks live in `queries/` (one file per feature); pages/screens call them with `@tanstack/react-query`.
 - **State/sync**: TanStack Query with optimistic updates for instant-feel interactions.
 - **Auth / payments / uploads**: see `skills/app/references/` when those features are needed.
+
+## Map and testimonials update
+
+Embed an interactive Google Map immediately above the shared footer on Home and Contact, with the real George studio address, a directions link and a Google privacy note. Home testimonials become a manually controlled horizontal scroll-snap carousel: arrow and dot controls, native touch swiping, accessible labels and reduced-motion support. Preserve both genuine excerpts in prerendered HTML; no autoplay.

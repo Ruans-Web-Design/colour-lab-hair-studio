@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Link, useLocation } from "wouter";
+import { TestimonialCarousel } from "../components/testimonial-carousel";
 import {
   ArrowUpRight,
   ArrowRight,
@@ -167,6 +168,31 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <main id="main" tabIndex={-1}>
         {children}
       </main>
+      <section className="studio-map" aria-labelledby="map-heading">
+        <div className="map-heading">
+          <div>
+            <span className="eyebrow">FIND COLOUR LAB IN GEORGE</span>
+            <h2 id="map-heading">
+              Your next stop: <em>Courtenay Street.</em>
+            </h2>
+            <p>25 Courtenay Street · George, South Africa</p>
+          </div>
+          <External href={maps} className="text-link">
+            Get directions
+            <ArrowUpRight size={18} />
+          </External>
+        </div>
+        <iframe
+          title="Google Map showing Colour Lab Hair Studio in George"
+          src="https://www.google.com/maps/embed?origin=mfe&pb=!1m3!3m2!1m1!4s3379725071183913766"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          allowFullScreen
+        />
+        <p className="map-privacy">
+          Interactive map provided by Google. Google’s privacy policy applies when the map loads.
+        </p>
+      </section>
       <footer>
         <div className="footer-top">
           <div>
@@ -652,7 +678,7 @@ export function Home() {
           title="Kind words."
           italic="Real experiences."
         />
-        <div className="home-testimonial-grid">
+        <TestimonialCarousel>
           <article>
             <span className="quote-mark" aria-hidden="true">
               “
@@ -679,7 +705,7 @@ export function Home() {
               </div>
             </div>
           </article>
-        </div>
+        </TestimonialCarousel>
         <div className="testimonial-source">
           <p>
             Selected client review excerpts. Google rating snapshot: 4.8/5 from 158 reviews, 16
