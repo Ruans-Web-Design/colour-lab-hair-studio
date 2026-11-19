@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { Link, useLocation } from "wouter";
+import { Link, useLocation, useSearch } from "wouter";
 import { TestimonialCarousel } from "../components/testimonial-carousel";
 import {
   ArrowUpRight,
@@ -127,6 +127,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       >
         Skip to content
       </a>
+      <div className="proposal-notice">
+        Website Proposal · Client Approval Pending · Enquiries Are Not Sent
+      </div>
       <header className="header">
         <Brand />
         <nav className="desktop-nav" aria-label="Main navigation">
@@ -260,13 +263,24 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <p>
               Photos and business information are drawn from public studio profiles. Publication
               permission and final business details should be approved before launch. The enquiry
-              form opens your email app and does not store your information on this website.
-              Appointments are only confirmed by the studio. Standard platform analytics may collect
-              website usage information.
+              form creates a draft on this page only; it does not send or store your enquiry on a
+              server. Photo permissions and business details have not yet been approved by the
+              client. Appointments are only confirmed by the studio. Standard platform analytics may
+              collect website usage information.
             </p>
           </div>
         )}
       </footer>
+      <nav className="mobile-booking-bar" aria-label="Quick contact">
+        <a href={phone}>
+          <Phone size={17} aria-hidden="true" />
+          Call
+        </a>
+        <Link href="/contact">
+          <Mail size={17} aria-hidden="true" />
+          Enquire
+        </Link>
+      </nav>
     </>
   );
 }
@@ -632,7 +646,8 @@ export function Home() {
           </p>
           <p>
             Led by owner Stefan Ellis, known as Stef, our work spans balayage, blondes, colour
-            corrections, cutting and hair treatments. Come as You Are. Let’s explore what’s next.
+            corrections, cutting and hair treatments. Our portfolio includes work by Stef and
+            Chantal. Come as you are. Let’s explore what’s next.
           </p>
           <External href={maps} className="text-link">
             Visit our studio
@@ -653,13 +668,19 @@ export function Home() {
               <h3>{s.name}</h3>
               <p>{s.text}</p>
               <div className="service-booking-row">
-                <span className="service-price-placeholder">Price Placeholder: R —</span>
                 <Link
-                  href="/contact"
-                  className="service-booking"
-                  aria-label={`Booking enquiry for ${s.name}`}
+                  className="service-quote"
+                  href={`/contact?service=${encodeURIComponent(s.name)}&intent=quote`}
+                  aria-label={`Request a quote for ${s.name}`}
                 >
-                  Booking <ArrowUpRight size={15} aria-hidden="true" />
+                  Request a Quote
+                </Link>
+                <Link
+                  href={`/contact?service=${encodeURIComponent(s.name)}`}
+                  className="service-booking"
+                  aria-label={`Enquire to book ${s.name}`}
+                >
+                  Enquire to Book <ArrowUpRight size={15} aria-hidden="true" />
                 </Link>
               </div>
             </article>
@@ -740,8 +761,8 @@ export function Home() {
             </summary>
             <p>
               Call <a href={phone}>044 873 4787</a> or use our{" "}
-              <Link href="/contact">contact form</Link> to prepare an email enquiry. The studio will
-              confirm availability directly; submitting an enquiry does not confirm a booking.
+              <Link href="/contact">contact form</Link> to explore an enquiry draft. This proposal
+              does not send enquiries or confirm bookings.
             </p>
           </details>
           <details>
@@ -797,14 +818,24 @@ export function Contact() {
   const [ready, setReady] = useState(false);
   const [copy, setCopy] = useState(false);
   const [draft, setDraft] = useState("");
-  const [subject, setSubject] = useState("");
+  const search = useSearch();
+  const params = new URLSearchParams(search);
+  const requestedService = params.get("service") || "";
+  const quote = params.get("intent") === "quote";
+  const [service, setService] = useState("Not sure yet");
+  useEffect(() => {
+    setService(
+      services.some((s) => s.name === requestedService) ? requestedService : "Not sure yet",
+    );
+    setReady(false);
+  }, [requestedService, quote]);
   function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-    const s = `Appointment enquiry — ${data.get("service")}`;
-    const text = `Hello Colour Lab,\n\nI'd like to enquire about an appointment.\n\nName: ${data.get("name")}\nPhone: ${data.get("phone")}\nEmail: ${data.get("email")}\nService: ${data.get("service")}\nPreferred date: ${data.get("date") || "Flexible"}\n\n${data.get("message")}\n\nPlease contact me to discuss availability. Thank you.`;
-    setSubject(s);
+
+    const text = `Hello Colour Lab,\n\nI'd like to ${quote ? "request a quote" : "enquire about an appointment"}.\n\nName: ${data.get("name")}\nPhone: ${data.get("phone")}\nEmail: ${data.get("email")}\nService: ${data.get("service")}\nPreferred date: ${data.get("date") || "Flexible"}\n\n${data.get("message")}\n\nPlease contact me to discuss availability. Thank you.`;
+
     setDraft(text);
     setReady(true);
     setCopy(false);
@@ -815,7 +846,7 @@ export function Contact() {
         tag="LET’S TALK ABOUT YOUR NEXT LOOK"
         title="Contact Colour Lab."
         italic="Your George Hair Studio."
-        text="Call the studio to book, or prepare an email enquiry. We’d love to hear what you have in mind."
+        text="Explore the enquiry form below. This proposal creates a draft only and does not send anything to the studio."
       />
       <section className="contact-layout section">
         <div className="contact-info">
@@ -868,14 +899,14 @@ export function Contact() {
             ))}
           </div>
         </div>
-        <div className="enquiry">
-          <span className="eyebrow">APPOINTMENT ENQUIRY</span>
+        <div className="enquiry" id="enquiry">
+          <span className="eyebrow">{quote ? "QUOTE ENQUIRY" : "APPOINTMENT ENQUIRY"}</span>
           <h2>
             Tell Us About <em>Your Hair.</em>
           </h2>
           <p>
-            This form prepares an email in your email app. The studio will confirm availability
-            directly.
+            Proposal preview: create a draft to review or copy. No email is sent, and no appointment
+            is booked.
           </p>
           <form onSubmit={submit}>
             <div className="form-grid">
@@ -890,14 +921,13 @@ export function Contact() {
                 />
               </label>
               <label>
-                Phone number
+                Phone number (optional)
                 <input
                   aria-label="Phone number"
                   name="phone"
                   type="tel"
                   autoComplete="tel"
                   placeholder="Your contact number"
-                  required
                 />
               </label>
             </div>
@@ -915,14 +945,14 @@ export function Contact() {
             <div className="form-grid">
               <label>
                 Service of interest
-                <select name="service" defaultValue="Not sure yet">
+                <select name="service" value={service} onChange={(e) => setService(e.target.value)}>
                   {["Not sure yet", ...services.map((s) => s.name)].map((s) => (
                     <option key={s}>{s}</option>
                   ))}
                 </select>
               </label>
               <label>
-                Preferred date
+                Preferred date (optional)
                 <input
                   aria-label="Preferred date"
                   name="date"
@@ -932,13 +962,12 @@ export function Contact() {
               </label>
             </div>
             <label>
-              A little about your next look
+              A little about your next look (optional)
               <textarea
                 aria-label="A little about your next look"
                 name="message"
                 rows={3}
                 placeholder="Your current hair, your ideal look, or anything you’d like us to know…"
-                required
               />
             </label>
             <label className="consent">
@@ -947,25 +976,18 @@ export function Contact() {
                 type="checkbox"
                 required
               />
-              I understand this is an enquiry, not a confirmed appointment. My details will only be
-              shared when I send the email.
+              I understand this is a proposal preview. This form does not send an enquiry or confirm
+              an appointment.
             </label>
             <button type="submit" className="button">
-              Prepare email enquiry
+              Create Enquiry Draft
               <ArrowUpRight size={18} />
             </button>
           </form>
           {ready && (
             <output className="draft">
-              <strong>Your email draft is ready.</strong>
-              <p>Open your email app, then send it to the studio. Nothing has been sent yet.</p>
-              <a
-                className="button"
-                href={`mailto:hsecolourlab@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(draft)}`}
-              >
-                Open email app
-                <Mail size={16} />
-              </a>
+              <strong>Your enquiry draft is ready.</strong>
+              <p>Review or copy your draft below. Nothing has been sent or booked.</p>
               <button
                 className="text-link"
                 onClick={async () => {

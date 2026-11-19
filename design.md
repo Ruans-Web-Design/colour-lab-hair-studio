@@ -63,3 +63,6 @@ Embed an interactive Google Map immediately above the shared footer on Home and 
 Use one H1 per page, H2 for peer sections and H3 for services and FAQ questions; use editorial Title Case for headings. Contact enquiry is a peer H2, not a child of contact information. Add three factual, native disclosure FAQs on Home about booking, location and hours. Place a clearly labelled “Price Placeholder: R —” under each service; no invented amounts or offers. Preserve the existing visual identity and static export.
 
 Each service has a compact forest-green “Booking” link alongside its price placeholder, linking to Contact. Allow the row to wrap on narrow screens and give each link a service-specific accessible name.
+
+## Proposal-Safe Conversion Improvements
+Client approval is pending. Replace placeholders with Request a Quote links and Enquire to Book CTAs, both carrying the service into Contact. Add a mobile Call / Enquire bar with bottom content clearance. Keep original photos and factual team names only. Proposal form creates an on-page copyable draft only; no send action or email provider. Name and email required, phone/date/message optional. Retain clear permission and business-detail approval notices, domain unchanged.

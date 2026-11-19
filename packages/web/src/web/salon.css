@@ -2073,7 +2073,7 @@ footer .brand > span {
   outline: 2px solid #25372d;
   outline-offset: 4px;
 }
-.service-price-placeholder {
+.service-quote {
   display: inline-block;
   padding: 7px 11px;
   border: 1px dashed var(--sage, #75816f);
@@ -2124,4 +2124,54 @@ footer .brand > span {
 .faq-list summary:focus-visible {
   outline: 2px solid #25372d;
   outline-offset: 4px;
+}
+
+.service-quote {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.proposal-notice {
+  padding: 9px 6%;
+  text-align: center;
+  background: #e7dfcf;
+  color: #25372d;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.mobile-booking-bar {
+  display: none;
+}
+@media (max-width: 767px) {
+  body {
+    padding-bottom: 145px;
+  }
+  .mobile-booking-bar {
+    display: flex;
+    position: fixed;
+    bottom: 62px;
+    left: 6%;
+    right: 6%;
+    z-index: 40;
+    background: #25372d;
+    color: #f2eee5;
+    box-shadow: 0 4px 16px #0002;
+  }
+  .mobile-booking-bar a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: 50%;
+    min-height: 48px;
+    font-size: 13px;
+  }
+  .mobile-booking-bar a + a {
+    border-left: 1px solid #ffffff40;
+  }
+  .service-booking {
+    padding: 10px 11px;
+  }
 }
