@@ -1172,7 +1172,7 @@ summary::-webkit-details-marker {
   padding: 38px;
   background: #e9ecdf;
 }
-.enquiry h3 {
+.enquiry h2 {
   font-size: 36px;
   margin: 12px 0;
 }
@@ -2044,4 +2044,59 @@ footer .brand > span {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* Clear pricing placeholders and accessible FAQ disclosures. */
+.service-price-placeholder {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 7px 11px;
+  border: 1px dashed var(--sage, #75816f);
+  color: #25372d;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.home-faq h2 {
+  margin-bottom: 32px;
+}
+.faq-list {
+  border-top: 1px solid #c9c9bc;
+}
+.faq-list details {
+  border-bottom: 1px solid #c9c9bc;
+}
+.faq-list summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 23px 0;
+  cursor: pointer;
+  list-style: none;
+}
+.faq-list summary::-webkit-details-marker {
+  display: none;
+}
+.faq-list summary h3 {
+  margin: 0;
+  font-size: clamp(24px, 3vw, 30px);
+}
+.faq-list summary svg {
+  flex-shrink: 0;
+}
+.faq-list details[open] summary svg {
+  transform: rotate(45deg);
+}
+.faq-list details p {
+  max-width: 760px;
+  padding-bottom: 24px;
+  line-height: 1.8;
+}
+.faq-list a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.faq-list summary:focus-visible {
+  outline: 2px solid #25372d;
+  outline-offset: 4px;
 }

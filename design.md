@@ -57,3 +57,7 @@ List each page/screen, its route file, and what it shows. Example:
 ## Map and testimonials update
 
 Embed an interactive Google Map immediately above the shared footer on Home and Contact, with the real George studio address, a directions link and a Google privacy note. Home testimonials become a manually controlled horizontal scroll-snap carousel: arrow and dot controls, native touch swiping, accessible labels and reduced-motion support. Preserve both genuine excerpts in prerendered HTML; no autoplay.
+
+## Heading, FAQ and Pricing Refinement
+
+Use one H1 per page, H2 for peer sections and H3 for services and FAQ questions; use editorial Title Case for headings. Contact enquiry is a peer H2, not a child of contact information. Add three factual, native disclosure FAQs on Home about booking, location and hours. Place a clearly labelled “Price Placeholder: R —” under each service; no invented amounts or offers. Preserve the existing visual identity and static export.

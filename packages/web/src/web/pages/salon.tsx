@@ -96,7 +96,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         : "Page Not Found | Colour Lab Hair Studio";
     const description = isContact
       ? "Book your next hair appointment at Colour Lab Hair Studio, 25 Courtenay Street, George. Call 044 873 4787 or email hsecolourlab@gmail.com."
-      : "Hair colour, balayage, blondes, colour corrections, cuts and treatments at Colour Lab Hair Studio in George. Visit 25 Courtenay Street. Call 044 873 4787.";
+      : "Hair Colour, balayage, blondes, colour corrections, cuts and treatments at Colour Lab Hair Studio in George. Visit 25 Courtenay Street. Call 044 873 4787.";
     for (const selector of [
       'meta[name="description"]',
       'meta[property="og:description"]',
@@ -173,7 +173,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div>
             <span className="eyebrow">FIND COLOUR LAB IN GEORGE</span>
             <h2 id="map-heading">
-              Your next stop: <em>Courtenay Street.</em>
+              Your Next Stop: <em>Courtenay Street.</em>
             </h2>
             <p>25 Courtenay Street · George, South Africa</p>
           </div>
@@ -256,7 +256,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </div>
         {privacy && (
           <div className="privacy">
-            <h3>About this preview</h3>
+            <h2>About This Preview</h2>
             <p>
               Photos and business information are drawn from public studio profiles. Publication
               permission and final business details should be approved before launch. The enquiry
@@ -272,45 +272,45 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 const services = [
   {
-    name: "Balayage & dimensional colour",
+    name: "Balayage & Dimensional Colour",
     tag: "SOFT BLENDS. BEAUTIFUL DIMENSION.",
     text: "From subtle brunette ribbons to brighter blonde looks, explore colour with depth, movement and a soft blend.",
     category: "Colour",
   },
   {
-    name: "Blondes, foils & toning",
+    name: "Blondes, Foils & Toning",
     tag: "FIND YOUR KIND OF BLONDE.",
     text: "Lighter, dimensional colour with blonde and foil work. Speak to our team about your ideal shade and how to maintain it.",
     category: "Colour",
   },
   {
-    name: "Colour corrections",
+    name: "Colour Corrections",
     tag: "A FRESH DIRECTION FOR YOUR HAIR.",
     text: "Unwanted tones or previous colour? Discuss your hair history and the look you have in mind so we can explore a correction plan.",
     category: "Colour",
   },
   {
-    name: "Hair colour",
+    name: "Hair Colour",
     tag: "A REFRESH. OR A WHOLE NEW YOU.",
     text: "Refresh your current shade or explore something different, from rich brunette tones to a brighter colour story.",
     category: "Colour",
   },
   {
-    name: "Cutting & styling",
+    name: "Cutting & Styling",
     tag: "THE FINISHING TOUCH.",
     text: "A fresh cut and a beautiful finish. Talk to the studio about the shape, length and style you are looking for.",
     category: "Cut & style",
   },
   {
-    name: "K18 / Olaplex treatments",
+    name: "K18 / Olaplex Treatments",
     tag: "A LITTLE EXTRA CARE.",
     text: "Ask our team which K18 or Olaplex treatment option is suitable for your hair and colour appointment.",
     category: "Treatments",
   },
   {
-    name: "Brazilian keratin treatment",
+    name: "Brazilian Keratin Treatment",
     tag: "EXPLORE YOUR SMOOTHING OPTIONS.",
-    text: "Speak to the team about Brazilian keratin treatment options, suitability and the maintenance involved.",
+    text: "Speak to the team about Brazilian Keratin Treatment options, suitability and the maintenance involved.",
     category: "Treatments",
   },
 ];
@@ -413,9 +413,9 @@ function Cta() {
     <section className="cta">
       <span className="eyebrow">YOUR NEXT CHAPTER STARTS HERE</span>
       <h2>
-        A little change.
+        A Little Change.
         <br />
-        <em>A beautiful feeling.</em>
+        <em>A Beautiful Feeling.</em>
       </h2>
       <p>Let’s talk about your next look.</p>
       <Button light>Call to book your appointment</Button>
@@ -562,9 +562,9 @@ export function Home() {
             <span className="little-line" /> COLOUR LAB · GEORGE
           </span>
           <h1>
-            Hair colour.
+            Hair Colour.
             <br />
-            Made personal
+            Made Personal
             <br />
             <em>in George.</em>
           </h1>
@@ -622,9 +622,9 @@ export function Home() {
         <div className="story-copy">
           <span className="eyebrow">ABOUT US</span>
           <h2 id="about-heading">
-            Your George studio.
+            Your George Studio.
             <br />
-            <em>A personal touch.</em>
+            <em>A Personal Touch.</em>
           </h2>
           <p>
             Colour Lab Hair Studio is a welcoming hair salon at 25 Courtenay Street in George, where
@@ -632,7 +632,7 @@ export function Home() {
           </p>
           <p>
             Led by owner Stefan Ellis, known as Stef, our work spans balayage, blondes, colour
-            corrections, cutting and hair treatments. Come as you are. Let’s explore what’s next.
+            corrections, cutting and hair treatments. Come as You Are. Let’s explore what’s next.
           </p>
           <External href={maps} className="text-link">
             Visit our studio
@@ -643,7 +643,7 @@ export function Home() {
       <section className="service-preview section" id="services">
         <SectionHeading
           eyebrow="A LITTLE REFRESH. A WHOLE NEW CHAPTER."
-          title="Hair services in"
+          title="Hair Services in"
           italic="George."
         />
         <div className="service-preview-grid">
@@ -652,6 +652,7 @@ export function Home() {
               <span className="service-number">0{i + 1}</span>
               <h3>{s.name}</h3>
               <p>{s.text}</p>
+              <span className="service-price-placeholder">Price Placeholder: R —</span>
             </article>
           ))}
         </div>
@@ -661,7 +662,7 @@ export function Home() {
         </p>
       </section>
       <section className="section portfolio-section">
-        <SectionHeading eyebrow="FROM THE STUDIO" title="Good hair." italic="Real people." />
+        <SectionHeading eyebrow="FROM THE STUDIO" title="Good Hair." italic="Real People." />
         <Gallery compact />
         <div className="gallery-bottom">
           <p>A few of our favourite colour stories.</p>
@@ -675,8 +676,8 @@ export function Home() {
       <section className="home-testimonials section" id="testimonials">
         <SectionHeading
           eyebrow="CLIENT TESTIMONIALS"
-          title="Kind words."
-          italic="Real experiences."
+          title="Kind Words."
+          italic="Real Experiences."
         />
         <TestimonialCarousel>
           <article>
@@ -715,6 +716,45 @@ export function Home() {
             Read the full Google reviews
             <ArrowUpRight size={17} />
           </External>
+        </div>
+      </section>
+      <section className="home-faq section" id="faq" aria-labelledby="faq-heading">
+        <span className="eyebrow">A FEW HELPFUL ANSWERS</span>
+        <h2 id="faq-heading">
+          Frequently Asked <em>Questions</em>
+        </h2>
+        <div className="faq-list">
+          <details>
+            <summary>
+              <h3>How Do I Book an Appointment?</h3>
+              <Plus size={20} aria-hidden="true" />
+            </summary>
+            <p>
+              Call <a href={phone}>044 873 4787</a> or use our{" "}
+              <Link href="/contact">contact form</Link> to prepare an email enquiry. The studio will
+              confirm availability directly; submitting an enquiry does not confirm a booking.
+            </p>
+          </details>
+          <details>
+            <summary>
+              <h3>Where Is Colour Lab Hair Studio?</h3>
+              <Plus size={20} aria-hidden="true" />
+            </summary>
+            <p>
+              You’ll find us at 25 Courtenay Street, George, South Africa. Use the map below or{" "}
+              <External href={maps}>get directions on Google Maps</External>.
+            </p>
+          </details>
+          <details>
+            <summary>
+              <h3>What Are Your Opening Hours?</h3>
+              <Plus size={20} aria-hidden="true" />
+            </summary>
+            <p>
+              We’re open Tuesday to Friday, 08:00–17:00, and Saturday, 08:00–14:00. The studio is
+              closed on Sunday and Monday. Call to check appointment availability.
+            </p>
+          </details>
         </div>
       </section>
       <Cta />
@@ -765,16 +805,16 @@ export function Contact() {
       <PageIntro
         tag="LET’S TALK ABOUT YOUR NEXT LOOK"
         title="Contact Colour Lab."
-        italic="Your George hair studio."
+        italic="Your George Hair Studio."
         text="Call the studio to book, or prepare an email enquiry. We’d love to hear what you have in mind."
       />
       <section className="contact-layout section">
         <div className="contact-info">
           <span className="eyebrow">FIND US IN GEORGE</span>
           <h2>
-            Come as you are.
+            Come as You Are.
             <br />
-            <em>Leave feeling you.</em>
+            <em>Leave Feeling You.</em>
           </h2>
           <div className="contact-row">
             <Phone size={19} />
@@ -821,9 +861,9 @@ export function Contact() {
         </div>
         <div className="enquiry">
           <span className="eyebrow">APPOINTMENT ENQUIRY</span>
-          <h3>
-            Tell us about <em>your hair.</em>
-          </h3>
+          <h2>
+            Tell Us About <em>Your Hair.</em>
+          </h2>
           <p>
             This form prepares an email in your email app. The studio will confirm availability
             directly.
@@ -943,7 +983,7 @@ export function Contact() {
         <div>
           <span className="eyebrow">YOUR MOMENT, OUR STUDIO</span>
           <h2>
-            See you on
+            See You on
             <br />
             <em>Courtenay Street.</em>
           </h2>
@@ -960,7 +1000,7 @@ export function NotFound() {
   return (
     <section className="page-intro">
       <span className="eyebrow">A DIFFERENT DIRECTION</span>
-      <h1>This page isn’t here.</h1>
+      <h1>This Page Isn’t Here.</h1>
       <Button to="/">Back to the studio</Button>
     </section>
   );
