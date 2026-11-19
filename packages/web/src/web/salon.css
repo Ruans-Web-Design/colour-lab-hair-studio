@@ -2047,9 +2047,34 @@ footer .brand > span {
 }
 
 /* Clear pricing placeholders and accessible FAQ disclosures. */
+.service-booking-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+.service-booking {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 14px;
+  background: #25372d;
+  color: #f2eee5;
+  font-size: 12px;
+  font-weight: 600;
+}
+.service-booking:hover {
+  background: #3b5042;
+}
+.service-booking:focus-visible {
+  outline: 2px solid #25372d;
+  outline-offset: 4px;
+}
 .service-price-placeholder {
   display: inline-block;
-  margin-top: 16px;
   padding: 7px 11px;
   border: 1px dashed var(--sage, #75816f);
   color: #25372d;

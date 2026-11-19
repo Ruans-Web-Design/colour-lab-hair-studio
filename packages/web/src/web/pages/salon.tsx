@@ -652,7 +652,16 @@ export function Home() {
               <span className="service-number">0{i + 1}</span>
               <h3>{s.name}</h3>
               <p>{s.text}</p>
-              <span className="service-price-placeholder">Price Placeholder: R —</span>
+              <div className="service-booking-row">
+                <span className="service-price-placeholder">Price Placeholder: R —</span>
+                <Link
+                  href="/contact"
+                  className="service-booking"
+                  aria-label={`Booking enquiry for ${s.name}`}
+                >
+                  Booking <ArrowUpRight size={15} aria-hidden="true" />
+                </Link>
+              </div>
             </article>
           ))}
         </div>
