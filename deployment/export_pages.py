@@ -11,7 +11,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "packages/web/dist"
-PUBLIC_URL = "https://sygstokkieza.github.io/colour-lab-hair-studio/"
+PUBLIC_URL = "https://ruans-web-design.github.io/colour-lab-hair-studio/"
 template = (DIST / "index.html").read_text()
 assert "/colour-lab-hair-studio/assets/" in template, "Build with --mode github-pages first"
 (DIST / "contact").mkdir(exist_ok=True)

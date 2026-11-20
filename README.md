@@ -50,9 +50,9 @@ Actual `.env` files, credentials, local databases, generated builds and test scr
 
 The revised website is published from the `gh-pages` branch of the public repository:
 
-- Website: https://sygstokkieza.github.io/colour-lab-hair-studio/
-- Repository: https://github.com/SygStokkieZA/colour-lab-hair-studio
-- Contact: https://sygstokkieza.github.io/colour-lab-hair-studio/contact/
+- Website: https://ruans-web-design.github.io/colour-lab-hair-studio/
+- Repository: https://github.com/Ruans-Web-Design/colour-lab-hair-studio
+- Contact: https://ruans-web-design.github.io/colour-lab-hair-studio/contact/
 
 The `main` branch holds the managed application source. GitHub Pages serves only the static frontend; it does not host the API scaffold. The other previously deleted repositories are not recreated.
 

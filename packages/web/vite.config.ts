@@ -30,7 +30,7 @@ export default defineConfig(({ mode }) => {
           order: "post",
           handler(html) {
             if (mode !== "github-pages") return html;
-            const url = "https://sygstokkieza.github.io/colour-lab-hair-studio/";
+            const url = "https://ruans-web-design.github.io/colour-lab-hair-studio/";
             return html
               .replace('src="/runable.js"', 'src="/colour-lab-hair-studio/runable.js"')
               .replace(

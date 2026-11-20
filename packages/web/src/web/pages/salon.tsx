@@ -108,7 +108,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       document.querySelector(selector)?.setAttribute("content", document.title);
     }
     if (import.meta.env.MODE === "github-pages") {
-      const url = `https://sygstokkieza.github.io/colour-lab-hair-studio/${isContact ? "contact/" : ""}`;
+      const url = `https://ruans-web-design.github.io/colour-lab-hair-studio/${isContact ? "contact/" : ""}`;
       document.querySelector('link[rel="canonical"]')?.setAttribute("href", url);
       document.querySelector('meta[property="og:url"]')?.setAttribute("content", url);
     }
